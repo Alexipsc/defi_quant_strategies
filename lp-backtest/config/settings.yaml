@@ -1,0 +1,20 @@
+# LP Backtest Configuration
+
+pool:
+  protocol: uniswap_v3
+  chain: ethereum
+  address: ""            # Checksummed pool address
+  fee_tier: 3000         # e.g. 500, 3000, 10000
+
+backtest:
+  start_date: "2024-01-01"
+  end_date: "2024-12-31"
+  initial_capital_usd: 10000
+
+strategy:
+  range_width_pct: 10    # ± % around current price for LP range
+  rebalance_threshold: 0.05
+
+data:
+  cache_dir: data/cache
+  source: thegraph       # thegraph | local
