@@ -205,3 +205,7 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Project-specific: data cache (fetched data, generated charts)
+**/data/cache/*
+!**/data/cache/.gitkeep
