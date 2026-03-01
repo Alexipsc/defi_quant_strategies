@@ -104,11 +104,23 @@ def main() -> None:
 
     plt.tight_layout()
 
-    # 4. Save chart ---------------------------------------------------------------
+    # 4. Save enriched CSV (overwrites the original, adding price_ratio + il_pct) --
+    df.to_csv(CSV_PATH, index=False)
+    print(f"CSV updated: {CSV_PATH}")
+
+    # Print first 5 rows as a sanity check
+    preview = df[["date", "token0Price", "il_pct"]].head(5).copy()
+    preview["date"]        = preview["date"].dt.strftime("%Y-%m-%d")
+    preview["token0Price"] = preview["token0Price"].apply(lambda x: f"${x:,.2f}")
+    preview["il_pct"]      = preview["il_pct"].apply(lambda x: f"{x:.4f}%")
+    print("\nFirst 5 rows:")
+    print(preview.to_string(index=False))
+
+    # 5. Save chart ---------------------------------------------------------------
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     fig.savefig(CHART_PATH, dpi=150, bbox_inches="tight")
     plt.close(fig)
-    print(f"Chart saved: {CHART_PATH}")
+    print(f"\nChart saved: {CHART_PATH}")
 
 
 if __name__ == "__main__":
